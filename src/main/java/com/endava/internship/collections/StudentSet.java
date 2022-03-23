@@ -6,16 +6,14 @@ import lombok.Setter;
 import java.util.*;
 import java.util.function.Consumer;
 
+
 public class StudentSet implements Set<Student> {
+
+    @Getter
+    @Setter
     private static class StudentNode {
-        @Getter
-        @Setter
         private Student student;
-        @Getter
-        @Setter
         private StudentNode greater;
-        @Getter
-        @Setter
         private StudentNode lesser;
 
         public StudentNode(Student student) {
@@ -24,7 +22,7 @@ public class StudentSet implements Set<Student> {
 
     }
 
-    public class StudentSetIterator implements Iterator <Student> {
+    public class StudentSetIterator implements Iterator<Student> {
         private final Stack<StudentNode> stack;
 
         public StudentSetIterator(StudentNode node) {
@@ -84,7 +82,7 @@ public class StudentSet implements Set<Student> {
     }
 
     public int recursiveCount(StudentNode node) {
-        if(node == null) {
+        if (node == null) {
             return 0;
         }
         return 1 + recursiveCount(node.getGreater()) + recursiveCount(node.getLesser());
@@ -114,11 +112,11 @@ public class StudentSet implements Set<Student> {
         if (node == null) {
             return null;
         }
-        if(student.equals(node.getStudent())) {
-            if(node.getLesser() == null && node.getGreater() == null) {
+        if (student.equals(node.getStudent())) {
+            if (node.getLesser() == null && node.getGreater() == null) {
                 return null;
             }
-            if(node.getLesser() == null) {
+            if (node.getLesser() == null) {
                 return node.getGreater();
             }
             if (node.getGreater() == null) {
@@ -129,7 +127,7 @@ public class StudentSet implements Set<Student> {
             node.setGreater(recursiveRemove(node.getGreater(), smallestStudent));
             return node;
         }
-        if(student.compareTo(node.getStudent()) < 0) {
+        if (student.compareTo(node.getStudent()) < 0) {
             node.setLesser(recursiveRemove(node.getLesser(), student));
         }
         node.setGreater(recursiveRemove(node.getGreater(), student));
@@ -178,10 +176,10 @@ public class StudentSet implements Set<Student> {
 
     @Override
     public boolean add(Student student) {
-        if(student == null) {
+        if (student == null) {
             throw new NullPointerException();
         }
-        if(contains(student)) {
+        if (contains(student)) {
             return false;
         } else {
             tree = recursiveAdd(tree, student);
