@@ -2,6 +2,7 @@ package com.endava.internship.collections;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -11,6 +12,7 @@ public class StudentSet implements Set<Student> {
 
     @Getter
     @Setter
+    @ToString
     private static class StudentNode {
         private Student student;
         private StudentNode greater;
@@ -235,5 +237,12 @@ public class StudentSet implements Set<Student> {
     public boolean removeAll(Collection<?> collection) {
         //Ignore this for homework
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String toString() {
+        return "StudentSet{" +
+                "tree=" + tree +
+                '}';
     }
 }
