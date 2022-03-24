@@ -95,6 +95,8 @@ public class TestStudentSet {
     }
 
     @Test
+    //TODO: How tos suppress Result of 'students.size()' is always '0' warning?
+    //@SuppressWarnings("SameParameterValue")
     public void clearWorks() {
         students.addAll(Arrays.asList(student1, student2, student3));
         students.clear();
