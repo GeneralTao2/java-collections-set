@@ -126,7 +126,7 @@ public class TestStudentSet {
     @Test
     public void toStringWorks() {
         students.addAll(Arrays.asList(student1, student2, student3, student4));
-        String output = "StudentSet{tree=StudentSet.StudentNode(student=com.endava.internship.collections.Student@75a6a4e6, greater=StudentSet.StudentNode(student=com.endava.internship.collections.Student@48578fa, greater=null, lesser=StudentSet.StudentNode(student=com.endava.internship.collections.Student@48570b9, greater=null, lesser=StudentSet.StudentNode(student=com.endava.internship.collections.Student@61e4a3, greater=null, lesser=null))), lesser=null)}";
+        String output = "StudentSet{tree=StudentSet.StudentNode(student=Student(name=Artur, dateOfBirth=2005-05-05, details=asdf), greater=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2004-04-04, details=asdf), greater=null, lesser=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2003-03-03, details=asdf), greater=null, lesser=StudentSet.StudentNode(student=Student(name=Joe, dateOfBirth=2002-02-02, details=asdf), greater=null, lesser=null))), lesser=null)}";
         assertEquals(output, students.toString());
     }
 
