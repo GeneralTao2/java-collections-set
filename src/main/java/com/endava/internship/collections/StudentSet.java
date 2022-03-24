@@ -228,8 +228,12 @@ public class StudentSet implements Set<Student> {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        for(Object student: collection) {
+            if(!contains(student)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

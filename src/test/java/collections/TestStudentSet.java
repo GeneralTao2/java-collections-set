@@ -147,6 +147,14 @@ public class TestStudentSet {
 
     }
 
+    @Test
+    public void containsAllWorks() {
+        students.addAll(Arrays.asList(student1, student2, student4));
+        assertTrue(students.containsAll(Arrays.asList(student1, student2, student4)));
+        assertFalse(students.containsAll(Arrays.asList(student1, student3, student4)));
+        assertFalse(students.containsAll(Arrays.asList(student1, student2, student4, student3)));
+    }
+
 
 
 }
