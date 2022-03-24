@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 @Data
 @AllArgsConstructor
-public class Student implements Comparable<Student> //TODO consider implementing any interfaces necessary for your collection
+public class Student implements Comparable<Student>
 {
     private String name;
     private LocalDate dateOfBirth;
@@ -37,11 +37,4 @@ public class Student implements Comparable<Student> //TODO consider implementing
                 .thenComparing(Student::getDateOfBirth)
                 .compare(this, o);
     }
-
-    /*
-    TODO consider overriding any methods for this object to function properly within a collection:
-        1. A student is considered unique by a combination of their name and dateOfBirth
-        2. Student names are sorted alphabetically, if two students have the same name, then the older one is
-        placed before the younger student in an ordered student list.
-    */
 }
