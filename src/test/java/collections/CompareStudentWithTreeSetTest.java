@@ -56,6 +56,7 @@ public class CompareStudentWithTreeSetTest {
     @After
     public void clear() {
         students = null;
+        treeSet = null;
     }
 
     @Test
