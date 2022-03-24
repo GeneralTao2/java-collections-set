@@ -168,10 +168,11 @@ public class StudentSet implements Set<Student> {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] ts) {
-        //TODO: Works only with Object class
-        Object[] objects = toArray();
-        ts = (T[]) Arrays.copyOf(objects, objects.length);
-        return ts;
+        List<T> list = new ArrayList<>();
+        for (Student student : this) {
+            list.add((T)student);
+        }
+        return list.toArray(ts);
     }
 
     @Override

@@ -80,7 +80,6 @@ public class CompareStudentWithTreeSetTest {
 
     @Test
     public void toGenericArray() {
-        //TODO: Doesnt work
         students.addAll(Arrays.asList(student1, student2, student3, student4));
         treeSet.addAll(Arrays.asList(student1, student2, student3, student4));
         Student[] studentArray = new Student[10];
