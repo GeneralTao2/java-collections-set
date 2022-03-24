@@ -22,7 +22,7 @@ public class StudentSet implements Set<Student> {
 
     }
 
-    public class StudentSetIterator implements Iterator<Student> {
+    private class StudentSetIterator implements Iterator<Student> {
         private final Stack<StudentNode> stack;
 
         public StudentSetIterator(StudentNode node) {
@@ -69,7 +69,7 @@ public class StudentSet implements Set<Student> {
 
     private StudentNode tree;
 
-    public boolean recursiveContains(StudentNode node, Student student) {
+    private boolean recursiveContains(StudentNode node, Student student) {
         if (node == null) {
             return false;
         }
@@ -81,14 +81,14 @@ public class StudentSet implements Set<Student> {
                 : recursiveContains(node.getLesser(), student);
     }
 
-    public int recursiveCount(StudentNode node) {
+    private int recursiveCount(StudentNode node) {
         if (node == null) {
             return 0;
         }
         return 1 + recursiveCount(node.getGreater()) + recursiveCount(node.getLesser());
     }
 
-    public StudentNode recursiveAdd(StudentNode node, Student student) {
+    private StudentNode recursiveAdd(StudentNode node, Student student) {
         if (node == null) {
             return new StudentNode(student);
         }
@@ -108,7 +108,7 @@ public class StudentSet implements Set<Student> {
         return node.getLesser() == null ? node.getStudent() : findSmallestStudent(node.getGreater());
     }
 
-    public StudentNode recursiveRemove(StudentNode node, Student student) {
+    private StudentNode recursiveRemove(StudentNode node, Student student) {
         if (node == null) {
             return null;
         }
