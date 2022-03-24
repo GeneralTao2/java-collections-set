@@ -157,11 +157,14 @@ public class StudentSet implements Set<Student> {
 
     @Override
     public Object[] toArray() {
-        //TODO: Does not provide certain sequence
         List<Student> list = new ArrayList<>();
+        // if replace this
         for (Student student : this) {
             list.add(student);
         }
+        // with this
+        // list.addAll(this);
+        // it will cause StackOverflowError
         return list.toArray();
     }
 
