@@ -130,6 +130,21 @@ public class TestStudentSet {
         assertEquals(output, students.toString());
     }
 
+    @Test
+    public void iteratorRemoveWorks() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        Iterator<Student> iterator = students.iterator();
+        iterator.next();
+        iterator.remove();
+        iterator.next();
+        iterator.remove();
+        assertEquals(student3, iterator.next());
+        assertEquals(student2, iterator.next());
+        assertFalse(students.contains(student1));
+        assertFalse(students.contains(student4));
+
+    }
+
 
 
 }

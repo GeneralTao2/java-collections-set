@@ -26,6 +26,7 @@ public class StudentSet implements Set<Student> {
 
     private class StudentSetIterator implements Iterator<Student> {
         private final Stack<StudentNode> stack;
+        private Student lastReturned;
 
         public StudentSetIterator(StudentNode node) {
             stack = new Stack<>();
@@ -47,7 +48,7 @@ public class StudentSet implements Set<Student> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            Student retVal = stack.peek().getStudent();
+            lastReturned = stack.peek().getStudent();
             StudentNode tmp = stack.peek().getGreater();
             stack.pop();
 
@@ -55,12 +56,15 @@ public class StudentSet implements Set<Student> {
                 stack.push(tmp);
                 tmp = tmp.getLesser();
             }
-            return retVal;
+            return lastReturned;
         }
 
         @Override
         public void remove() {
-            Iterator.super.remove();
+            if (lastReturned == null) {
+                throw new IllegalStateException();
+            }
+            tree = recursiveRemove(tree, lastReturned);
         }
 
         @Override
