@@ -162,6 +162,7 @@ public class StudentSet implements Set<Student> {
     }
 
     @Override
+    //TODO: How to suppress 'Iteration can be replaced with bulk 'x' call' warning
     public Object[] toArray() {
         List<Student> list = new ArrayList<>();
         // if replace this
