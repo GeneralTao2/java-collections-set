@@ -72,6 +72,19 @@ public class CompareStudentWithTreeSetTest {
     }
 
     @Test
+    public void dateOfBirthAreEquals() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        treeSet.addAll(Arrays.asList(student1, student2, student3, student4));
+
+        Iterator<Student> studentIterator = students.iterator();
+        Iterator<Student> treeSetIterator = treeSet.iterator();
+        assertEquals(treeSetIterator.next().getDateOfBirth(), studentIterator.next().getDateOfBirth());
+        assertEquals(treeSetIterator.next().getDateOfBirth(), studentIterator.next().getDateOfBirth());
+        assertEquals(treeSetIterator.next().getDateOfBirth(), studentIterator.next().getDateOfBirth());
+        assertEquals(treeSetIterator.next().getDateOfBirth(), studentIterator.next().getDateOfBirth());
+    }
+
+    @Test
     public void toObjectArray() {
         students.addAll(Arrays.asList(student1, student2, student3, student4));
         treeSet.addAll(Arrays.asList(student1, student2, student3, student4));
