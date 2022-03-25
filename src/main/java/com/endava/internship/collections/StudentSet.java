@@ -111,7 +111,7 @@ public class StudentSet implements Set<Student> {
     }
 
     private Student findSmallestStudent(StudentNode node) {
-        return node.getLesser() == null ? node.getStudent() : findSmallestStudent(node.getGreater());
+        return node.getLesser() == null ? node.getStudent() : findSmallestStudent(node.getLesser());
     }
 
     private StudentNode recursiveRemove(StudentNode node, Student student) {
@@ -162,7 +162,7 @@ public class StudentSet implements Set<Student> {
     }
 
     @Override
-    //TODO: How to suppress 'Iteration can be replaced with bulk 'x' call' warning
+    @SuppressWarnings("UseBulkOperation")
     public Object[] toArray() {
         List<Student> list = new ArrayList<>();
         // if replace this
