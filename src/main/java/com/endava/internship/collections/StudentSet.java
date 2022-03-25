@@ -26,6 +26,7 @@ public class StudentSet implements Set<Student> {
 
     private class StudentSetIterator implements Iterator<Student> {
         private final Stack<StudentNode> stack;
+        private Student lastReturned;
 
         public StudentSetIterator(StudentNode node) {
             stack = new Stack<>();
@@ -47,7 +48,7 @@ public class StudentSet implements Set<Student> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            Student retVal = stack.peek().getStudent();
+            lastReturned = stack.peek().getStudent();
             StudentNode tmp = stack.peek().getGreater();
             stack.pop();
 
@@ -55,12 +56,15 @@ public class StudentSet implements Set<Student> {
                 stack.push(tmp);
                 tmp = tmp.getLesser();
             }
-            return retVal;
+            return lastReturned;
         }
 
         @Override
         public void remove() {
-            Iterator.super.remove();
+            if (lastReturned == null) {
+                throw new IllegalStateException();
+            }
+            tree = recursiveRemove(tree, lastReturned);
         }
 
         @Override
@@ -158,6 +162,7 @@ public class StudentSet implements Set<Student> {
     }
 
     @Override
+    //TODO: How to suppress 'Iteration can be replaced with bulk 'x' call' warning
     public Object[] toArray() {
         List<Student> list = new ArrayList<>();
         // if replace this
@@ -223,20 +228,35 @@ public class StudentSet implements Set<Student> {
 
     @Override
     public boolean containsAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        for(Object student: collection) {
+            if(!contains(student)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean retVal = false;
+        for(Student student: this) {
+            if (!collection.contains(student)) {
+                tree = recursiveRemove(tree, student);
+                retVal = true;
+            }
+        }
+        return retVal;
     }
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean retVal = false;
+        for(Object collectionStudent: collection) {
+            if(remove(collectionStudent)) {
+                retVal = true;
+            }
+        }
+        return retVal;
     }
 
     @Override

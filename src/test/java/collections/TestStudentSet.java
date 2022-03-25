@@ -25,22 +25,22 @@ public class TestStudentSet {
         student1 = new Student(
                 "Artur",
                 LocalDate.of(2005, 5, 5),
-                "asdf"
+                "student1"
         );
         student2 = new Student(
                 "John",
                 LocalDate.of(2004, 4, 4),
-                "asdf"
+                "student2"
         );
         student3 = new Student(
                 "John",
                 LocalDate.of(2003, 3, 3),
-                "asdf"
+                "student3"
         );
         student4 = new Student(
                 "Joe",
                 LocalDate.of(2002, 2, 2),
-                "asdf"
+                "student4"
         );
     }
 
@@ -95,6 +95,8 @@ public class TestStudentSet {
     }
 
     @Test
+    //TODO: How tos suppress Result of 'students.size()' is always '0' warning?
+    //@SuppressWarnings("SameParameterValue")
     public void clearWorks() {
         students.addAll(Arrays.asList(student1, student2, student3));
         students.clear();
@@ -126,8 +128,51 @@ public class TestStudentSet {
     @Test
     public void toStringWorks() {
         students.addAll(Arrays.asList(student1, student2, student3, student4));
-        String output = "StudentSet{tree=StudentSet.StudentNode(student=Student(name=Artur, dateOfBirth=2005-05-05, details=asdf), greater=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2004-04-04, details=asdf), greater=null, lesser=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2003-03-03, details=asdf), greater=null, lesser=StudentSet.StudentNode(student=Student(name=Joe, dateOfBirth=2002-02-02, details=asdf), greater=null, lesser=null))), lesser=null)}";
+        String output = "StudentSet{tree=StudentSet.StudentNode(student=Student(name=Artur, dateOfBirth=2005-05-05, details=student1), greater=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2004-04-04, details=student2), greater=null, lesser=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2003-03-03, details=student3), greater=null, lesser=StudentSet.StudentNode(student=Student(name=Joe, dateOfBirth=2002-02-02, details=student4), greater=null, lesser=null))), lesser=null)}";
         assertEquals(output, students.toString());
+    }
+
+    @Test
+    public void iteratorRemoveWorks() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        Iterator<Student> iterator = students.iterator();
+        iterator.next();
+        iterator.remove();
+        iterator.next();
+        iterator.remove();
+        assertEquals(student3, iterator.next());
+        assertEquals(student2, iterator.next());
+        assertFalse(students.contains(student1));
+        assertFalse(students.contains(student4));
+
+    }
+
+    @Test
+    public void containsAllWorks() {
+        students.addAll(Arrays.asList(student1, student2, student4));
+        assertTrue(students.containsAll(Arrays.asList(student1, student2, student4)));
+        assertFalse(students.containsAll(Arrays.asList(student1, student3, student4)));
+        assertFalse(students.containsAll(Arrays.asList(student1, student2, student4, student3)));
+    }
+
+    @Test
+    public void retainsAllWorks() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        assertTrue(students.retainAll(Arrays.asList(student1, student2)));
+        assertFalse(students.retainAll(Arrays.asList(student1, student2)));
+        assertArrayEquals(Arrays.asList(student1, student2).toArray(), students.toArray());
+        assertTrue(students.retainAll(Arrays.asList(student3, student4)));
+        assertEquals(0, students.size());
+    }
+
+    @Test
+    public void removeAllWorks() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        assertTrue(students.removeAll(Arrays.asList(student1, student2)));
+        assertFalse(students.removeAll(Arrays.asList(student1, student2)));
+        assertArrayEquals(Arrays.asList(student4, student3).toArray(), students.toArray());
+        assertTrue(students.removeAll(Arrays.asList(student3, student4)));
+        assertEquals(0, students.size());
     }
 
 
