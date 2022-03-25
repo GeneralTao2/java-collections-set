@@ -238,8 +238,14 @@ public class StudentSet implements Set<Student> {
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean retVal = false;
+        for(Student student: this) {
+            if (!collection.contains(student)) {
+                tree = recursiveRemove(tree, student);
+                retVal = true;
+            }
+        }
+        return retVal;
     }
 
     @Override

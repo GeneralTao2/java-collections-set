@@ -155,6 +155,16 @@ public class TestStudentSet {
         assertFalse(students.containsAll(Arrays.asList(student1, student2, student4, student3)));
     }
 
+    @Test
+    public void retainsAllWorks() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        assertTrue(students.retainAll(Arrays.asList(student1, student2)));
+        assertFalse(students.retainAll(Arrays.asList(student1, student2)));
+        assertArrayEquals(Arrays.asList(student1, student2).toArray(), students.toArray());
+        assertTrue(students.retainAll(Arrays.asList(student3, student4)));
+        assertEquals(0, students.size());
+    }
+
 
 
 }
