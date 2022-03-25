@@ -25,22 +25,22 @@ public class TestStudentSet {
         student1 = new Student(
                 "Artur",
                 LocalDate.of(2005, 5, 5),
-                "asdf"
+                "student1"
         );
         student2 = new Student(
                 "John",
                 LocalDate.of(2004, 4, 4),
-                "asdf"
+                "student2"
         );
         student3 = new Student(
                 "John",
                 LocalDate.of(2003, 3, 3),
-                "asdf"
+                "student3"
         );
         student4 = new Student(
                 "Joe",
                 LocalDate.of(2002, 2, 2),
-                "asdf"
+                "student4"
         );
     }
 
@@ -128,7 +128,7 @@ public class TestStudentSet {
     @Test
     public void toStringWorks() {
         students.addAll(Arrays.asList(student1, student2, student3, student4));
-        String output = "StudentSet{tree=StudentSet.StudentNode(student=Student(name=Artur, dateOfBirth=2005-05-05, details=asdf), greater=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2004-04-04, details=asdf), greater=null, lesser=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2003-03-03, details=asdf), greater=null, lesser=StudentSet.StudentNode(student=Student(name=Joe, dateOfBirth=2002-02-02, details=asdf), greater=null, lesser=null))), lesser=null)}";
+        String output = "StudentSet{tree=StudentSet.StudentNode(student=Student(name=Artur, dateOfBirth=2005-05-05, details=student1), greater=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2004-04-04, details=student2), greater=null, lesser=StudentSet.StudentNode(student=Student(name=John, dateOfBirth=2003-03-03, details=student3), greater=null, lesser=StudentSet.StudentNode(student=Student(name=Joe, dateOfBirth=2002-02-02, details=student4), greater=null, lesser=null))), lesser=null)}";
         assertEquals(output, students.toString());
     }
 
@@ -162,6 +162,16 @@ public class TestStudentSet {
         assertFalse(students.retainAll(Arrays.asList(student1, student2)));
         assertArrayEquals(Arrays.asList(student1, student2).toArray(), students.toArray());
         assertTrue(students.retainAll(Arrays.asList(student3, student4)));
+        assertEquals(0, students.size());
+    }
+
+    @Test
+    public void removeAllWorks() {
+        students.addAll(Arrays.asList(student1, student2, student3, student4));
+        assertTrue(students.removeAll(Arrays.asList(student1, student2)));
+        assertFalse(students.removeAll(Arrays.asList(student1, student2)));
+        assertArrayEquals(Arrays.asList(student4, student3).toArray(), students.toArray());
+        assertTrue(students.removeAll(Arrays.asList(student3, student4)));
         assertEquals(0, students.size());
     }
 

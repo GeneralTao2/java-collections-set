@@ -250,8 +250,13 @@ public class StudentSet implements Set<Student> {
 
     @Override
     public boolean removeAll(Collection<?> collection) {
-        //Ignore this for homework
-        throw new UnsupportedOperationException();
+        boolean retVal = false;
+        for(Object collectionStudent: collection) {
+            if(remove(collectionStudent)) {
+                retVal = true;
+            }
+        }
+        return retVal;
     }
 
     @Override
